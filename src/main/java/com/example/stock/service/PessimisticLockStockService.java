@@ -5,22 +5,21 @@ import com.example.stock.repository.StockRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
-public class StockService {
+public class PessimisticLockStockService {
 
     private final StockRepository stockRepository;
 
-    public StockService(StockRepository stockRepository) {
+    public PessimisticLockStockService(StockRepository stockRepository) {
         this.stockRepository = stockRepository;
     }
 
-//    @Transactional
-    public synchronized void decrease(Long id, Long quantity) {
-        Stock stock = stockRepository.findById(id).orElseThrow();
+    @Transactional
+    public void decrease(Long id, Long quantity) {
+        Stock stock = stockRepository.findByIdWithPessimisticLock(id);
+
         stock.decrease(quantity);
 
-        stockRepository.saveAndFlush(stock);
+        stockRepository.save(stock);
     }
 }
