@@ -20,7 +20,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.redisson:redisson-spring-boot-starter:3.17.4'
+	implementation 'org.redisson:redisson-spring-boot-starter:3.23.2'
 
 }
 
